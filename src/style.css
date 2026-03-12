@@ -71,7 +71,7 @@ h1 {
     background-color: #888;
     border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform var(--flip-duration) ease;
     transform-style: preserve-3d;
     position: relative;
 }
@@ -263,4 +263,47 @@ button:hover {
     .instructions p {
         font-size: 0.9rem;
     }
+}
+
+/* Speed control */
+:root {
+    --flip-duration: 0.3s;
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 12px;
+}
+
+.speed-label {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #555;
+    margin-right: 4px;
+}
+
+.speed-btn {
+    padding: 6px 16px;
+    font-size: 0.9rem;
+    background-color: #e0e0e0;
+    color: #444;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 0;
+    transition: all 0.15s ease;
+}
+
+.speed-btn:hover {
+    background-color: #d0d0d0;
+}
+
+.speed-btn.active {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #388e3c;
 }

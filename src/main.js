@@ -13,7 +13,26 @@ const COLORS = [
     '#FF3380'  // Magenta
 ];
 
-// ── State ────────────────────────────────────────────────────────────────────
+// ── Speed settings ────────────────────────────────────────────────────────────
+
+const SPEEDS = {
+    slow:   { flip: 0.6,  match: 800,  mismatch: 1500 },
+    normal: { flip: 0.3,  match: 500,  mismatch: 1000 },
+    fast:   { flip: 0.15, match: 250,  mismatch: 600  },
+};
+
+let currentSpeed = 'normal';
+
+function applySpeed(speed) {
+    currentSpeed = speed;
+    document.documentElement.style.setProperty('--flip-duration', `${SPEEDS[speed].flip}s`);
+    localStorage.setItem('flippy_speed', speed);
+    document.querySelectorAll('.speed-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.speed === speed);
+    });
+}
+
+// ── State ─────────────────────────────────────────────────────────────────────
 
 let clickCount = 0;
 let startTime = null;
@@ -26,7 +45,7 @@ let gameActive = false;
 let boardSize = 10;
 let totalPairs = 0;
 
-// ── DOM refs ─────────────────────────────────────────────────────────────────
+// ── DOM refs ──────────────────────────────────────────────────────────────────
 
 const gameBoard = document.getElementById('game-board');
 const clickCountElement = document.getElementById('click-count');
@@ -186,6 +205,8 @@ function handleTileClick(tile) {
         secondTile = tile;
         canFlip = false;
 
+        const speed = SPEEDS[currentSpeed];
+
         if (firstTile.dataset.color === secondTile.dataset.color) {
             setTimeout(() => {
                 firstTile.classList.add('matched');
@@ -193,13 +214,13 @@ function handleTileClick(tile) {
                 resetTiles();
                 matchedPairs++;
                 if (matchedPairs === totalPairs) endGame();
-            }, 500);
+            }, speed.match);
         } else {
             setTimeout(() => {
                 firstTile.classList.remove('flipped');
                 secondTile.classList.remove('flipped');
                 resetTiles();
-            }, 1000);
+            }, speed.mismatch);
         }
     }
 }
@@ -270,11 +291,18 @@ document.getElementById('board-size-select').addEventListener('change', () => {
     }
 });
 
+document.querySelectorAll('.speed-btn').forEach(btn => {
+    btn.addEventListener('click', () => applySpeed(btn.dataset.speed));
+});
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 
 const savedSize = localStorage.getItem('flippy_board_size');
 if (savedSize) {
     document.getElementById('board-size-select').value = savedSize;
 }
+
+const savedSpeed = localStorage.getItem('flippy_speed') || 'normal';
+applySpeed(savedSpeed);
 
 initGame();
