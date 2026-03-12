@@ -133,6 +133,7 @@ function initGame() {
     gameActive = true;
 
     boardSize = parseInt(document.getElementById('board-size-select').value);
+    localStorage.setItem('flippy_board_size', boardSize);
     totalPairs = (boardSize * boardSize) / 2;
 
     gameBoard.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
@@ -270,5 +271,10 @@ document.getElementById('board-size-select').addEventListener('change', () => {
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────
+
+const savedSize = localStorage.getItem('flippy_board_size');
+if (savedSize) {
+    document.getElementById('board-size-select').value = savedSize;
+}
 
 initGame();
