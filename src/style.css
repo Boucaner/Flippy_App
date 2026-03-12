@@ -1,0 +1,266 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.score, .timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.board-size {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.board-size select {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.game-board {
+    display: grid;
+    gap: 4px;
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+}
+
+.tile {
+    background-color: #888;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.tile:hover {
+    transform: scale(0.95);
+}
+
+.tile.flipped {
+    transform: rotateY(180deg);
+}
+
+.tile.matched {
+    visibility: hidden;
+}
+
+.tile-front, .tile-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile-front {
+    background-color: #888;
+}
+
+.tile-back {
+    transform: rotateY(180deg);
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Records panel */
+.records {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.records h3 {
+    margin: 0 0 12px 0;
+    color: #333;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.records-grid {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    gap: 6px 16px;
+    font-size: 0.95rem;
+}
+
+.records-grid .col-header {
+    font-weight: bold;
+    color: #666;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eee;
+}
+
+.records-grid .size-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.records-grid .record-val {
+    color: #333;
+}
+
+.records-grid .record-val.no-record {
+    color: #aaa;
+    font-style: italic;
+}
+
+.records-grid .record-val.new-record {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Game over overlay */
+.game-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.game-over.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.game-over h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.game-over p {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.game-over .new-record-banner {
+    font-size: 1.2rem;
+    color: #FFD700;
+    margin-bottom: 20px;
+    min-height: 1.5em;
+    text-align: center;
+}
+
+/* Instructions */
+.instructions {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    line-height: 1.5;
+}
+
+.instructions h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 10px;
+    }
+    .game-board {
+        gap: 2px;
+        padding: 5px;
+    }
+    .score, .timer, .board-size {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+    .board-size select {
+        font-size: 0.9rem;
+        padding: 2px 4px;
+    }
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    .instructions p {
+        font-size: 0.9rem;
+    }
+}

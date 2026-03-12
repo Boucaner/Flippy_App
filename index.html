@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flippy - Memory Matching Tile Game</title>
+    <meta name="description" content="Flippy is a fun memory matching game with colored tiles. Match pairs of same-colored tiles to clear the board with the fewest clicks possible.">
+    <meta name="keywords" content="Flippy, memory game, tile matching, browser game, puzzle game">
+    <meta name="author" content="Flippy Game">
+    <meta property="og:title" content="Flippy - Memory Matching Tile Game">
+    <meta property="og:description" content="Challenge your memory with Flippy! Match colored tiles in this addictive browser-based puzzle game.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Flippy - Memory Matching Tile Game">
+    <meta name="twitter:description" content="Test your memory skills with Flippy, a colorful tile-matching game!">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+    <h1>Flippy</h1>
+    <div class="game-info">
+        <div class="score">Flips: <span id="click-count">0</span></div>
+        <div class="board-size">
+            <label for="board-size-select">Board Size:</label>
+            <select id="board-size-select">
+                <option value="4">4x4</option>
+                <option value="6">6x6</option>
+                <option value="8">8x8</option>
+                <option value="10" selected>10x10</option>
+            </select>
+        </div>
+        <div class="timer">Time: <span id="time">00:00</span></div>
+    </div>
+    <div class="game-board" id="game-board"></div>
+    <div class="actions">
+        <button id="reset-btn">New Game</button>
+    </div>
+
+    <div class="records">
+        <h3>🏆 Records</h3>
+        <div class="records-grid" id="records-grid"></div>
+    </div>
+
+    <div class="instructions">
+        <h3>How to Play:</h3>
+        <p>
+            1. Click on any tile to flip it and reveal its color.<br>
+            2. Click on another tile to find a matching color.<br>
+            3. If the colors match, both tiles will be removed from the board.<br>
+            4. If the colors don't match, both tiles will flip back over.<br>
+            5. Try to remove all tiles with the fewest flips possible!<br>
+            6. The game ends when all tiles have been matched and removed.
+        </p>
+    </div>
+
+    <div class="game-over" id="game-over">
+        <h2>🎉 Board Cleared!</h2>
+        <p>Flips: <strong><span id="final-clicks">0</span></strong> &nbsp;|&nbsp; Time: <strong><span id="final-time">00:00</span></strong></p>
+        <div class="new-record-banner" id="new-record-banner"></div>
+        <button id="play-again-btn">Play Again</button>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
