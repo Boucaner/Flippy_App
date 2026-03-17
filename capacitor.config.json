@@ -1,0 +1,8 @@
+{
+  "appId": "com.flippygame.app",
+  "appName": "Flippy",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
